@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --background-color: rgb(241, 241, 241);
+    --ligth-mode: #eeeeee;
+    --dark-mode: #1d1d1d;
+    --text-white: rgb(238, 238, 238);
+    --text-dark: rgba(29, 29, 29);
+    --border-light: rgb(238, 238, 238, 0.2);
+    --border-dark: rgba(29, 29, 29, 0.2);
+    --border-radius: 8px;
+    --padding: 8px;
+    --margin: 8px;
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Montserrat", sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main {
+    transition: all ease-in-out 0.3s;
+    border-radius: var(--border-radius);
+    border: solid1 px black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: calc(2 * var(--padding));
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+main:hover {
+    transition: all ease-in-out 0.3s;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 100px 0px;;
+}
+
+h1 {
+    color: var(--text-dark);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: calc(2 * var(--margin));
+}
+
+.buttons button {
+    font-weight: bold;
+    transition: all ease-in-out 0.3s;
+    border: solid 1px var(--border-dark);
+    padding: var(--padding) calc(2 * var(--padding));
+    margin: var(--margin);
+    border-radius: var(--border-radius);
+}
+
+.buttons button:hover {
+    color: var(--text-white);
+    transition: all ease-in-out 0.3s;
+    cursor: pointer;
+    border: solid 1px var(--border-dark);
+    background-color: var(--dark-mode);
+}
+
+
+
+
+
+
+
+.inputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.inputs label {
+    text-align: left;
+    
+}
+
+label {
+    margin-top: calc(2 *var(--margin));
+    margin-bottom: var(--margin);
+    width: 100%;
+    padding-left: calc(2 * var(--padding));
+}
+
+input {
+    border-radius: var(--border-radius);
+    border: solid 1px var(--border-dark);
+    padding: var(--padding);
+}
