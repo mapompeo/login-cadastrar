@@ -18,7 +18,7 @@ app.use(cors())
 app.post('/cadastrar', (req, res) => {
     const dados = req.body
     console.log(dados)
-    bcrypt.hash(dados.senha, 10,  async (err, hash) => {
+    bcrypt.hash(dados.senha, 10, async (err, hash) => {
         if (err) {
             console.log(`Erro ao gerar o hash`)
             res.status(500).json({ message: `Erro ao criptografar os dados!` })
@@ -35,27 +35,37 @@ app.post('/cadastrar', (req, res) => {
 })
 
 // ROTA LOGIN COM BCRYPT
-app.post('/login', (req, res) => {
+app.post('/entrar', async (req, res) => {
     const login = req.body
-    console.log(login)
-    bcrypt.compare(login.senha, 10, async (err, result) => {
-        if (err) {
-            res.status(200).json(`Erro ao verificar a criptografia. ${err}`)
-        }
-        try {
-            const pesq = await User.findOne({where: {email: login.email,}, raw: true})
-            res.status(200).json(pesq)
-        }
-        catch(err) {
-            res.status(500).json({message: `Erro no servidor. ${err}`})
-        }
-    })
+    console.log(`> email = ${login.email}`)
+    const pesquisa = await User.findOne({ where: { email: login.email }, raw: true })
+    if (pesquisa == null) {
+        console.log(`> pesquisa = null`)
+        res.status(500).json({Message: "pesquisa = null"})
+    }
+    else {
+        const senhabanco = pesquisa.senha
+        const senhauser = login.senha
+        bcrypt.compare( senhauser , senhabanco, (err, result) => {
+            if (err) {
+                console.log(`Erro ao validar criptografia`)
+                res.status(500).json({Message: `Acesso negado.`})
+            }
+            else if (result){
+                res.status(200).json({Message:`Acesso autorizado, bem vindo ${pesquisa.nome}.`})
+            } 
+            else {
+                console.log(`Erro ao validar criptografia`)
+                res.status(500).json({Message: `Acesso negado.`})
+            }
+        })
+    }
 })
 
 // -----------------------------------------
 
 app.get('/', (req, res) => {
-    res.status(200).json({ message: `Servidor rodando corretamente!` })
+    res.status(200).json({ message: `Servidor rodando corretamente!`})
 })
 
 conn.sync().then(() => {
